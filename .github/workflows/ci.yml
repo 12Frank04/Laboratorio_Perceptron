@@ -27,6 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Ejecutar pruebas
+      - name: Ejecutar pruebas y generar cobertura
         run: |
           python -m pytest --cov=src --cov-report=xml
+
+      - name: Analizar con SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
